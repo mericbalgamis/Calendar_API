@@ -1,0 +1,62 @@
+<%= form_with(model: calendar, local: true) do |form| %>
+  <% if calendar.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(calendar.errors.count, "error") %> prohibited this calendar from being saved:</h2>
+
+      <ul>
+      <% calendar.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.text_field :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_select :end_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.text_field :end_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repeat %>
+    <%= form.text_field :repeat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reminder %>
+    <%= form.text_field :reminder %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

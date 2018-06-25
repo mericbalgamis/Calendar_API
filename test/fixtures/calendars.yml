@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  location: MyString
+  start_date: 2018-06-25
+  start_time: MyString
+  end_date: 2018-06-25
+  end_time: MyString
+  repeat: MyString
+  reminder: MyString
+
+two:
+  title: MyString
+  content: MyText
+  location: MyString
+  start_date: 2018-06-25
+  start_time: MyString
+  end_date: 2018-06-25
+  end_time: MyString
+  repeat: MyString
+  reminder: MyString
