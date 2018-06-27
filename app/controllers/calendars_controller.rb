@@ -1,3 +1,6 @@
+require "rubygems"
+require "json"
+
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:show, :edit, :update, :destroy]
 
@@ -10,6 +13,8 @@ class CalendarsController < ApplicationController
   # GET /calendars/1
   # GET /calendars/1.json
   def show
+    @event = Calendar.find(params[:id])
+    render json: @event
   end
 
   # GET /calendars/new
@@ -19,6 +24,7 @@ class CalendarsController < ApplicationController
 
   # GET /calendars/1/edit
   def edit
+
   end
 
   # POST /calendars
@@ -31,8 +37,13 @@ class CalendarsController < ApplicationController
         format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
         format.json { render :show, status: :created, location: @calendar }
       else
-        format.html { render :new }
-        format.json { render json: @calendar.errors, status: :unprocessable_entity }
+
+        @data = JSON.parse(format)
+        @data.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
+
+
+        #format.html { render :new }
+        #format.json { render json: @calendar.errors, status: :unprocessable_entity }
       end
     end
   end
