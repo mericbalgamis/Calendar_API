@@ -8,7 +8,7 @@ class CalendarsController < ApplicationController
   # GET /calendars.json
   def index
     @calendars = Calendar.all
-    render json: @calendars
+    #render json: @calendars
   end
 
   # GET /calendars/1
@@ -35,12 +35,12 @@ class CalendarsController < ApplicationController
 
     respond_to do |format|
       if @calendar.save
-        format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
+        format.html { redirect_to calendars_url, notice: 'Calendar was successfully created.' }
         format.json { render :show, status: :created, location: @calendar }
       else
 
         @data = JSON.parse(format)
-        @data.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
+        @data.html { redirect_to calendars_url, notice: 'Calendar was successfully created.' }
 
 
         #format.html { render :new }
