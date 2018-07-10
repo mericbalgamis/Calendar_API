@@ -35,12 +35,12 @@ class CalendarsController < ApplicationController
 
     respond_to do |format|
       if @calendar.save
-        format.html { redirect_to calendars_url, notice: 'Calendar was successfully created.' }
+        format.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
         format.json { render :show, status: :created, location: @calendar }
       else
 
         @data = JSON.parse(format)
-        @data.html { redirect_to calendars_url, notice: 'Calendar was successfully created.' }
+        @data.html { redirect_to @calendar, notice: 'Calendar was successfully created.' }
 
 
         #format.html { render :new }
@@ -71,6 +71,20 @@ class CalendarsController < ApplicationController
       format.html { redirect_to calendars_url, notice: 'Calendar was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def search_with_keyword
+    @calendars = Calendar.all
+
+    results = Array.new
+
+    @calendars.each_entry { |result|
+      if params['keyword'].in? result.title.downcase or params['keyword'].in? result.content.downcase
+        results << result
+      end
+    }
+
+    render json: results
   end
 
   private
