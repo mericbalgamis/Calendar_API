@@ -77,7 +77,7 @@ class CalendarsController < ApplicationController
     @calendars = Calendar.all
 
     results = Array.new
-
+    # Heroku burada downcase metoduna hata veriyor.
     @calendars.each_entry { |result|
       if params['keyword'].in? result.title.downcase or params['keyword'].in? result.content.downcase
         results << result
@@ -85,6 +85,13 @@ class CalendarsController < ApplicationController
     }
 
     render json: results
+  end
+
+  before_action :set_cors
+
+  def set_cors
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Request-Method'] = '*'
   end
 
   private
