@@ -79,9 +79,13 @@ class CalendarsController < ApplicationController
 
     results = Array.new
     # Heroku burada downcase metoduna hata veriyor.
-    @calendars.each_entry { |result|
-      if params['keyword'].in? result.title.downcase or params['keyword'].in? str(result.content).downcase
-        results << result
+    @calendars.each_hash { |result|
+
+      if params['keyword'].in? result.content.downcase
+          results << result
+      else if params['keyword'].in? result.title.downcase
+             results << result
+           end
       end
     }
 
