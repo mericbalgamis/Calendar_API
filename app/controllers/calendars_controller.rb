@@ -78,14 +78,27 @@ class CalendarsController < ApplicationController
     @calendars = Calendar.all
 
     results = Array.new
-    # Heroku burada downcase metoduna hata veriyor.
+    # 2018-07-14T07:29:39.844803+00:00 heroku[router]: at=info method=GET path="/calendars/search/deneme" host=immense-coast-39524.herokuapp.com request_id=43b41567-cde1-4fac-90ef-3287498050bf fwd="193.140.110.35" dyno=web.1 connect=0ms service=12ms status=500 bytes=1841 protocol=https
+    # 2018-07-14T07:29:39.835824+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf] Started GET "/calendars/search/deneme" for 193.140.110.35 at 2018-07-14 07:29:39 +0000
+    # 2018-07-14T07:29:39.837358+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf] Processing by CalendarsController#search_with_keyword as HTML
+    # 2018-07-14T07:29:39.837442+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf]   Parameters: {"keyword"=>"deneme"}
+    # 2018-07-14T07:29:39.841959+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf]   [1m[36mCalendar Load (1.6ms)[0m  [1m[34mSELECT "calendars".* FROM "calendars"[0m
+    # 2018-07-14T07:29:39.845346+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf] Completed 500 Internal Server Error in 8ms (ActiveRecord: 1.6ms)
+    # 2018-07-14T07:29:39.845940+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf]
+    # 2018-07-14T07:29:39.846019+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf] NoMethodError (undefined method `downcase' for nil:NilClass):
+    # 2018-07-14T07:29:39.846062+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf]
+    # 2018-07-14T07:29:39.846117+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf] app/controllers/calendars_controller.rb:84:in `block in search_with_keyword'
+    # 2018-07-14T07:29:39.846118+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf] app/controllers/calendars_controller.rb:82:in `each_entry'
+    # 2018-07-14T07:29:39.846119+00:00 app[web.1]: [43b41567-cde1-4fac-90ef-3287498050bf] app/controllers/calendars_controller.rb:82:in `search_with_keyword'
     @calendars.each_entry { |result|
 
-      if params['keyword'].in? result.content.downcase
-          results << result
-      else if params['keyword'].in? result.title.downcase
-             results << result
-           end
+      if(!(result.content.nil? || result.title.nil?))
+        if params['keyword'].in? result.content.downcase
+            results << result
+        else if params['keyword'].in? result.title.downcase
+               results << result
+             end
+        end
       end
     }
 
