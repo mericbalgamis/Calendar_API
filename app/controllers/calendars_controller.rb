@@ -93,9 +93,9 @@ class CalendarsController < ApplicationController
     @calendars.each_entry { |result|
 
       if(!(result.content.nil? || result.title.nil?))
-        if params['keyword'] == result.content.downcase
+        if params['keyword'].downcase == result.content.downcase
             results << result
-        else if params['keyword'] == result.title.downcase
+        else if params['keyword'].downcase == result.title.downcase
                results << result
              end
         end
